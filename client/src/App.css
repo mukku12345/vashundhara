@@ -28,6 +28,29 @@
   color: #61dafb;
 }
 
+.container-products{
+  display: flex;
+  justify-content: space-evenly;
+  background-color: bisque;
+  margin:10px;
+  
+}
+
+.btn{
+  height: 20px;
+  width: 50px;
+  background-color: #282c34;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.btn:hover{
+  background-color:whitesmoke ;
+  color:#282c34 ;
+}
+.btn-div{
+  margin-left: 90px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

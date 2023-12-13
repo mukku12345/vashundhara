@@ -41,6 +41,7 @@ API.post(ApiEndPoint.Post,formData,{headers:headers})
 .then((response)=>{
     console.log("response",response.data);
     getProducts();
+    alert("posted")
 }).catch((error)=>{
     console.log("error",error)
 })
@@ -134,9 +135,9 @@ const saveEditProduct = (e) =>{
     formData.append('rating',rating)
     formData.append('brand',brandName)
     
-    for(let i =0;i<editImages.length;i++){
+    for(let i =0;i<images.length;i++){
     
-        formData.append('images',editImages[i])
+        formData.append('images',images[i])
     }
     
     API.put(ApiEndPoint.UpdateById +`?productId=${editProductId}`,formData,{headers:headers})
@@ -157,7 +158,7 @@ const saveEditProduct = (e) =>{
 
   return (
     <>
-
+    <h3>Vasundhara 🌎</h3>
 { <form onSubmit={(e)=>(isEditing?saveEditProduct(e):postProducts(e))}>
 <label>Name</label>
 <input type='text' value={productName} onChange={(e)=>{setProductName(e.target.value)}}/>
@@ -191,23 +192,28 @@ const saveEditProduct = (e) =>{
     {
         findProducts && findProducts.map((item,index)=>{
 return(
-    <div key={index}>
-        <p>name : {item.name}</p>
-        <p>price : {item.price}</p>
-        <p>rating : {item.rating}</p>
-        <p>brand : {item.brand}</p>
+    <div className='container-products' key={index}>
+      <div>
+      <p>Name : {item.name}</p>
+        <p>Price : {item.price}</p>
+        <p>Rating : {item.rating} ⭐</p>
+        <p>Brand : {item.brand}</p>
+        </div>
       
        {item.images.map((item)=>{
         return(
-            <div style={{"height":"20px" ,"width":"18px"}}>
+            <div >
     
-        <img src={item} name="images"  style={{"height":"100px" ,"width":"90px"}}/>
+        <img src={item} name="images"  style={{"height":"200px" ,"width":"190px"}}/>
         
         </div>
         )
        })}
-<button onClick={()=>{editProductById(item._id,item.name,item.price,item.rating,item.brand,item.images)}}>Edit</button>
-<button onClick={()=>{deleteProduct(item._id)}}>Delete</button>
+       <div className='btn-div'>
+       <button className='btn' onClick={()=>{editProductById(item._id,item.name,item.price,item.rating,item.brand,item.images)}}>Edit</button>
+<button className='btn' onClick={()=>{deleteProduct(item._id)}}>Delete</button>
+        </div>
+
 
         </div>
 )
@@ -217,8 +223,10 @@ return(
   
 
 
-    <button onClick={()=>{pageLoadingPrev()}} >prev</button>
+   {pageNumber>1 ?<button onClick={()=>{pageLoadingPrev()}} >prev</button> : ""}
+    {/* {pageNumber >= findProducts.length  ? "" : */}
     <button onClick={()=>{pageLoadingNext()}} >next</button>
+    {/* } */}
 </div>
     </>
   )
